@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint"
+    "lint": "prettier --config .prettierrc.js --write './**/*.{js,scss,json,vue}'"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -15,6 +15,8 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
@@ -28,20 +30,24 @@
     "eslint": "^6.7.2",
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-vue": "^7.0.0-0",
-    "lint-staged": "^9.5.0",
-    "prettier": "^1.19.1",
+    "husky": "^4.3.5",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
     "typescript": "~3.9.3",
     "vue-jest": "^5.0.0-0"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+      "pre-push": "echo 我要提交代码啦~"
+    }
   },
   "lint-staged": {
-    "*.{js,jsx,vue}": [
-      "vue-cli-service lint",
-      "git add"
+    "src/**/*.{js,vue}": [
+      "npm run lint"
     ]
   }
 }

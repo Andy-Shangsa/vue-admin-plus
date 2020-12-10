@@ -1,0 +1,9 @@
+/tests
+/public
+/dist
+
+# local files
+package-lock.json
+package.json
+.*.js
+*.config.js
